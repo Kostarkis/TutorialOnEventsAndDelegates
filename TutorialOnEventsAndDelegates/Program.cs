@@ -13,22 +13,27 @@ namespace TutorialOnEventsAndDelegates
     {
         static void Main(string[] args)
         {
-            var video = new Video() { Title = "Video 1" };
-            var videoEncoder = new VideoEncoder(); // Publisher
+            Video video = new Video() { Title = "Video 1" };
+            VideoEncoder videoEncoder = new VideoEncoder(); // Publisher
 
-            MediaService mediaService = new MediaService(); // parent Subscriber
-
-            foreach (var mediaObject in mediaService.GetType().GetNestedTypes())
-                
-                if (mediaObject.GetMethod("OnVideoEncoded") != null)
-                    
-                    videoEncoder.VideoEncoded += (VideoEncodedEventHandler)Delegate
-                        .CreateDelegate(typeof(VideoEncodedEventHandler), 
-                                        Activator.CreateInstance(mediaObject), 
-                                        mediaObject.GetMethod("OnVideoEncoded"));
+            AttachMediaServicesToVideoEncodedEventHandler(videoEncoder);
 
             videoEncoder.Encode(video);
             Thread.Sleep(3000);
+        }
+
+        static void AttachMediaServicesToVideoEncodedEventHandler(VideoEncoder videoEncoder)
+        {
+            MediaService mediaService = new MediaService(); // parent Subscriber
+
+            foreach (var mediaObject in mediaService.GetType().GetNestedTypes())
+
+                if (mediaObject.GetMethod("OnVideoEncoded") != null)
+
+                    videoEncoder.VideoEncoded += (VideoEncodedEventHandler)Delegate
+                        .CreateDelegate(typeof(VideoEncodedEventHandler),
+                                        Activator.CreateInstance(mediaObject),
+                                        mediaObject.GetMethod("OnVideoEncoded"));
         }
     }
 }
