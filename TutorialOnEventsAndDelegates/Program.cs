@@ -30,8 +30,8 @@ namespace TutorialOnEventsAndDelegates
 
                 if (mediaObject.GetMethod("OnVideoEncoded") != null)
 
-                    videoEncoder.VideoEncoded += (VideoEncodedEventHandler)Delegate
-                        .CreateDelegate(typeof(VideoEncodedEventHandler),
+                    videoEncoder.VideoEncoded += (EventHandler<ObjectEventArgs<Video>>)Delegate
+                        .CreateDelegate(typeof(EventHandler<ObjectEventArgs<Video>>),
                                         Activator.CreateInstance(mediaObject),
                                         mediaObject.GetMethod("OnVideoEncoded"));
         }
