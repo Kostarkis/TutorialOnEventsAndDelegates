@@ -1,6 +1,6 @@
 # TutorialOnEventsAndDelegates
 
-This is an extended project that was covered in this tutorial by "Programming with Mosh": 
+This is an extend of a project that was covered in this tutorial by "Programming with Mosh": 
 https://www.youtube.com/watch?v=jQgwEsJISy0&list=PLTjRvDozrdlz3_FPXwb6lX_HoGXa09Yef&index=11
 
 What was introduced:
